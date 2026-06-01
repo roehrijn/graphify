@@ -1,6 +1,7 @@
 """Token-reduction benchmark - measures how much context graphify saves vs naive full-corpus approach."""
 from __future__ import annotations
 import json
+import os
 import sys
 from pathlib import Path
 import networkx as nx
@@ -8,6 +9,8 @@ from networkx.readwrite import json_graph
 
 from graphify.build import edge_data
 from graphify.serve import _query_terms
+
+_GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
 
 _CHARS_PER_TOKEN = 4  # standard approximation
@@ -85,7 +88,7 @@ _SAMPLE_QUESTIONS = [
 
 
 def run_benchmark(
-    graph_path: str = "graphify-out/graph.json",
+    graph_path: str = f"{_GRAPHIFY_OUT}/graph.json",
     corpus_words: int | None = None,
     questions: list[str] | None = None,
 ) -> dict:

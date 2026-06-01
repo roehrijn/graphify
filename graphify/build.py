@@ -30,6 +30,8 @@ from pathlib import Path
 import networkx as nx
 from .validate import validate_extraction
 
+_GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
+
 
 # Synonym mapper for known invalid file_type values that LLM subagents commonly
 # emit. Keeps semantic intent close (markdown→document, tool→code) and falls
@@ -322,7 +324,7 @@ def deduplicate_by_label(nodes: list[dict], edges: list[dict]) -> tuple[list[dic
 
 def build_merge(
     new_chunks: list[dict],
-    graph_path: str | Path = "graphify-out/graph.json",
+    graph_path: str | Path = f"{_GRAPHIFY_OUT}/graph.json",
     prune_sources: list[str] | None = None,
     *,
     directed: bool = False,

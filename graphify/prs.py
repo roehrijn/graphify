@@ -29,6 +29,7 @@ from pathlib import Path
 
 # ── ANSI colours ─────────────────────────────────────────────────────────────
 
+_GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 _NO_COLOR = not sys.stdout.isatty() or os.environ.get("NO_COLOR")
 
 def _c(code: str, text: str) -> str:
@@ -673,7 +674,7 @@ def cmd_prs(argv: list[str]) -> None:
     do_conflicts = False
     show_wrong_base = False
     pr_number: int | None = None
-    graph_path = Path("graphify-out/graph.json")
+    graph_path = Path(f"{_GRAPHIFY_OUT}/graph.json")
 
     i = 0
     while i < len(argv):

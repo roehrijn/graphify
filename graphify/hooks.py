@@ -134,7 +134,7 @@ if [ "$BRANCH_SWITCH" != "1" ]; then
 fi
 
 # Only run if graphify-out/ exists (graph has been built before)
-if [ ! -d "graphify-out" ]; then
+if [ ! -d "${GRAPHIFY_OUT:-graphify-out}" ]; then
     exit 0
 fi
 

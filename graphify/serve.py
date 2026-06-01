@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 import math
+import os
 import re
 import sys
 from pathlib import Path
@@ -9,6 +10,8 @@ import networkx as nx
 from networkx.readwrite import json_graph
 from graphify.security import sanitize_label, check_graph_file_size_cap
 from graphify.build import edge_data
+
+_GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
 try:
     import jieba as _jieba  # type: ignore[import-untyped]
@@ -472,7 +475,7 @@ def _filter_blank_stdin() -> None:
     sys.stdin = open(0, "r", closefd=False)
 
 
-def serve(graph_path: str = "graphify-out/graph.json") -> None:
+def serve(graph_path: str = f"{_GRAPHIFY_OUT}/graph.json") -> None:
     """Start the MCP server. Requires pip install mcp."""
     import threading
 
@@ -989,5 +992,5 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
 
 if __name__ == "__main__":
-    graph_path = sys.argv[1] if len(sys.argv) > 1 else "graphify-out/graph.json"
+    graph_path = sys.argv[1] if len(sys.argv) > 1 else f"{_GRAPHIFY_OUT}/graph.json"
     serve(graph_path)
